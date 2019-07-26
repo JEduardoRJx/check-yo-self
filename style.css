@@ -3,6 +3,7 @@
   margin: 0;
 }
 
+/* *** GLOBAL ***/
 body {
   font-family: 'Open Sans', sans-serif;
  /* display:grid;
@@ -12,6 +13,19 @@ body {
   'aside section section' 50%/ 1fr 1fr 1fr;*/
 }
 
+div {
+  display: flex;
+}
+
+img {
+  height: 30px;
+}
+
+input {
+  height: 30px;
+}
+
+/* *** HEADER *** */
 header {
   background-color: #1F1F3D;
   display: flex;
@@ -22,15 +36,26 @@ header {
 h1 {
   color: #FFFFFF;
 }
+
 span {
   color: #FFC30C;
 }
 
+.header__div--img {
+  background-color: #F3F6F7;
+}
+
+.header__div--input {
+
+}
+
+/* ***MAIN*** */
 main {
   display: flex;
   height: 100vh;
 }
 
+/* *** ASIDE | Form *** */
 aside {
   background-color: #587A8A;
   display: flex;
@@ -42,12 +67,40 @@ form {
   padding: 10px;
 }
 
+label {
+  display: block;
+}
+
+.form__label--title {
+
+}
+
 #title {
   width: 100%;
 }
 
+output {
+
+}
+
+.form__output {
+
+}
+
+.form__label--task {
+
+}
+
+.form__div {
+  height: 30px;
+}
+
 #task {
   width: 50%;
+}
+
+.form__div--img {
+  background-color: #1F1F3D;
 }
 
 button {
@@ -60,12 +113,16 @@ button {
   font-size: 1em;
 }
 
-input {
-  height: 30px;
-}
-
 .form__btn--task {
   margin: 10px 0;
+}
+
+.form__btn--clear {
+
+}
+
+.aside__btn {
+
 }
 
 .aside__btn {
@@ -73,31 +130,9 @@ input {
   margin: 0 10px;
 }
 
-.form__div {
-  height: 30px;
-}
-
-label {
-  display: block;
-}
+/* *** SECTION | Cards *** */
 
 section {
   background-color: #F3F6F7;
   width: 70%;
-}
-
-img {
-  height: 30px;
-}
-
-div {
-  display: flex;
-}
-
-.header__div--img {
-  background-color: #F3F6F7;
-}
-
-.form__div--img {
-  background-color: #1F1F3D;
 }
