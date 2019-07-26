@@ -17,11 +17,13 @@ img {
 }
 
 input {
-  height: 30px;
+  height: 60px;
   border: none;
   border-radius: 2px;
   font-size: 1.5em;
   padding: 10px;
+  font-weight: 400;
+  border: 2px solid #1F1F3D;
 }
 
 ::placeholder {
@@ -62,6 +64,7 @@ span {
   height: 100%;
   width: 100%;
   border-radius: 0px 3px 3px 0px;
+  border: none;
 }
 
 /* ***MAIN*** */
@@ -75,15 +78,17 @@ aside {
   background-color: #587A8A;
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 500px;
+  border-right: 2px solid #1F1F3D;
 }
 
 form {
-  padding: 10px;
+  padding: 15px;
 }
 
 label {
   display: block;
+  color: #FFFFFF;
 }
 
 .form__label--title {
@@ -107,15 +112,25 @@ output {
 }
 
 .form__div {
-  height: 30px;
+  height: 60px;
+  border: 2px solid #1F1F3D;
+
 }
 
 #task {
   width: 50%;
+  height: 100%;
+  width: 100%;
+  border-radius: none;
+  border: none;
 }
 
 .form__div--img {
   background-color: #1F1F3D;
+  width: 13%;
+  padding: 3%;
+  height: 100%;
+  /*border-radius: 3px 0px 0px 3px;*/
 }
 
 button {
