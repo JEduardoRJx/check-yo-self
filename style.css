@@ -6,11 +6,6 @@
 /* *** GLOBAL ***/
 body {
   font-family: 'Open Sans', sans-serif;
- /* display:grid;
-  grid-template: 
-  'header header header' 75px
-  'aside section section' 50%
-  'aside section section' 50%/ 1fr 1fr 1fr;*/
 }
 
 div {
@@ -23,6 +18,8 @@ img {
 
 input {
   height: 30px;
+  border: none;
+  border-radius: 2px;
 }
 
 /* *** HEADER *** */
@@ -30,23 +27,37 @@ header {
   background-color: #1F1F3D;
   display: flex;
   justify-content: space-between;
-  height: 15vh;
+  height: 90px;
+  padding: 1em;
 }
 
 h1 {
   color: #FFFFFF;
+  font-size: 3em;
 }
 
 span {
   color: #FFC30C;
 }
 
+.header__div {
+  width: 300px;
+}
+.header__div--btn {
+  background-color: #F3F6F7;
+  width: 15%;
+  height: 100%;
+}
+
 .header__div--img {
   background-color: #F3F6F7;
+  width: 90%;
+  height: 90%;
 }
 
 .header__div--input {
-
+  height: 100%;
+  width: 100%;
 }
 
 /* ***MAIN*** */
