@@ -97,18 +97,26 @@ label {
 
 #title {
   width: 100%;
+  margin-bottom: 10px;
 }
 
-output {
-
+ul {
+  list-style: none;
 }
 
-.form__output {
+.ul__li {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  color: #FFFFFF;
+}
 
+.ul__li--img {
+  margin-right: 5px;
 }
 
 .form__label--task {
-
+  margin-top: 10px;
 }
 
 .form__div {
@@ -161,8 +169,50 @@ button {
 }
 
 /* *** SECTION | Cards *** */
-
 section {
+  column-width: 21em;
   background-color: #F3F6F7;
-  width: 70%;
+  display: inline-block;
+  padding:  1.25em;
+  width:  100%; 
+}
+
+
+/* *** Article | Card *** */
+article {
+  background-color: #FAFDFF;
+  border: 2px solid #C7D3D8;
+  display: inline-block;
+  margin:  .5em;
+  padding:  1rem;
+  width:  100%;
+}
+
+.article__header {
+  background-color: #FAFDFF;
+}
+
+h2 {
+
+}
+
+.article__ul {
+
+}
+
+.article__ul--li {
+
+}
+
+.article__footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article__footer--urgent {
+
+}
+
+.article__footer--delete {
+
 }
