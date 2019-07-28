@@ -141,7 +141,8 @@ ul {
   /*border-radius: 3px 0px 0px 3px;*/
 }
 
-.form__div--plusbtn:disabled {
+.form__div--plusbtn:disabled,
+.form__btn--maketasklist:disabled {
   background-color: #C0CDD3;
   color: #6D8B99;
 }
@@ -156,7 +157,7 @@ button {
   font-size: 1.5em;
 }
 
-.form__btn--task {
+.form__btn--maketasklist {
   margin: 10px 0;
 }
 
