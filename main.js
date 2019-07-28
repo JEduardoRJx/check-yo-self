@@ -12,57 +12,91 @@ var toDoListArray = [];
 
 // *** Event Listeners ***
 window.addEventListener('load', handlePageLoad)
-// plusBtn.addEventListener('click', handlePlusBtn)
-// plusBtn.addEventListener('click', removeTask)
+plusBtn.addEventListener('click', handlePlusBtn)
+form.addEventListener('click', deleteTask)
 taskItemInput.addEventListener('keyup', disablePlusBtn)
+taskTitleInput.addEventListener('keyup', disablePlusBtn)
 
 makeTaskListBtn.addEventListener('click', handleMakeTaskListBtn)
 
 // *** Functionality | Handlers 1st ***
 function handlePageLoad() {
   disablePlusBtn();
+  // disableMakeTaskListButton();
+  createNewToDoList();
 }
 
 function handleMakeTaskListBtn() {
-  createNewToDoList();
+  // createNewToDoList();
   // finalizeToDoList();
 }
 
 function handlePlusBtn() {
-  createNewTask();
+  createNewTask(toDoListArray[toDoListArray.length - 1]);
 }
 
 function disablePlusBtn() {
-  taskItemInput.value === '' ? plusBtn.disabled = true : plusBtn.disabled = false;
+  // taskItemInput.value === '' && taskTitleInput.value === '' ? plusBtn.disabled = true : plusBtn.disabled = false;
+  if (taskTitleInput.value === '' || taskItemInput.value === '') {
+    plusBtn.disabled = true;
+  } else {
+    plusBtn.disabled = false;
+  }
+}
+
+function disableTaskListButton() {
+  //how to check if there are any objects in DOM?
+
 }
 
 function createNewToDoList() {
   var newToDoList = new ToDoList({title: taskTitleInput.value});
   toDoListArray.push(newToDoList)
-  createNewTask(newToDoList);
+  console.log(newToDoList)
+  // createNewTask(newToDoList);
 }
 
 function createNewTask(newToDoList) {
   var task = new ToDoTask({text: taskItemInput.value});
   addTaskToDom(event, task)
-  console.log('first', newToDoList)
   newToDoList.addTask(task)
-  console.log('second', newToDoList)
-  // return itemObj
 }
 
 function addTaskToDom(event, task) {
-  if (event.target.className ==='form__div--plusimg' && taskItemInput.value !== '') {
-  taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" ><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${task.text}</li>`)
+  if (event.target.className === 'form__div--plusbtn' && taskItemInput.value !== '') {
+  taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" data-id="${task.id}"><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${task.text}</li>`)
   }
+  //Activate "Make Task List Button"
   clearTaskInput();
+  disablePlusBtn()
 }
 
-function removeTask(event) {
+function deleteTask(event) {
   if (event.target.className === 'ul__li--deleteimg') {
     event.target.parentNode.remove();
+    taskObject = findTaskObject(event)
+    toDoListArray[toDoListArray.length - 1].removeTask(taskObject.id)
   }
 }
+
+function findTaskIndex(event) {
+  var taskIdentity = event.target.closest('.ul__li').dataset.id
+  var taskIndex = toDoListArray[toDoListArray.length - 1].tasks.findIndex(taskObj => {
+    return parseInt(taskIdentity) === taskObj.id;
+  })
+  return taskIndex
+}   
+
+function findTaskObject(event) {
+  var taskIndex = findTaskIndex(event)
+  var taskObject = toDoListArray[toDoListArray.length - 1].tasks[taskIndex] 
+  return taskObject
+}
+
+function findToDoIndex(event) {
+  var toDoIdentity = event.target.closest('article').dataset.id
+}
+
 
 function clearTaskInput() {
   taskItemInput.value = ''
@@ -82,7 +116,7 @@ function finalizeToDoList() {
 
 function createToDoListCard(newToDoList) {
 // const tasks = newToDoList.tasks
-cardSection.insertAdjacentHTML('afterbegin', `<article>
+cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${newToDoList.id}">
           <header class="article__header">
             <h2>${newToDoList.title}</h2>
           </header>
@@ -97,3 +131,34 @@ cardSection.insertAdjacentHTML('afterbegin', `<article>
           </footer>
         </article>`)
 }
+
+
+function createTodoTask() {
+  //You are setting and empty array to 'todotasks'
+  localStorage.setItem('todoTasks', JSON.stringify([]));
+}
+
+
+// //Chris code
+// function cardInstance(e) {
+//   e.preventDefault();
+//   //You setting todoTasks to an empty array by getting 'todoTasks' then parsing it aka todoTasks = []
+//   var todoTasks = JSON.parse(localStorage.getItem('todoTasks'));
+//   //you are instantiating a new instance of the ToDoList class passing it
+//   //the date.now, the Title, and an empty array
+//   var taskCard = new ToDoList(Date.now(), titleInput.value, todoTasks);
+//   //Then you are pushing that new Instance of the ToDoList class into the
+//   //todoList Array
+//   cardsArray.push(taskCard);
+//   //You call saveToStorage on the new instance and pass it in the array to save it to storage
+//   taskCard.saveToStorage(cardsArray);
+//   //If 'todolistArray' is set to something
+//   if (localStorage.getItem('todoListArray')) {
+//     //invoke createtodoTask which sets a stringified empty array
+//     createTodoTask();
+//     //then remove the strinified array from storage
+//     localStorage.removeItem('todoTasks');
+//   }
+//   //invoke generate card passing it the instance of todoList
+//   generateCard(taskCard);
+// }
