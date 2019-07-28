@@ -11,6 +11,15 @@ class ToDoList {
     this.tasks.push(task)
   }
 
+  removeTask(taskId) {
+    for(var index = 0; index < this.tasks.length; index++) {
+      console.log("My task ID", taskId)
+      if(this.tasks[index].id === taskId) {
+        this.tasks.splice(index, 1);
+      }
+    }
+  }
+
   addTitle(title) {
     this.title = title;
   }

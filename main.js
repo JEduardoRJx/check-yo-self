@@ -13,7 +13,7 @@ var toDoListArray = [];
 // *** Event Listeners ***
 window.addEventListener('load', handlePageLoad)
 plusBtn.addEventListener('click', handlePlusBtn)
-// plusBtn.addEventListener('click', removeTask)
+form.addEventListener('click', deleteTask)
 taskItemInput.addEventListener('keyup', disablePlusBtn)
 taskTitleInput.addEventListener('keyup', disablePlusBtn)
 
@@ -23,7 +23,7 @@ makeTaskListBtn.addEventListener('click', handleMakeTaskListBtn)
 function handlePageLoad() {
   disablePlusBtn();
   // disableMakeTaskListButton();
-  createNewToDoList()
+  createNewToDoList();
 }
 
 function handleMakeTaskListBtn() {
@@ -32,7 +32,6 @@ function handleMakeTaskListBtn() {
 }
 
 function handlePlusBtn() {
-  console.log('in HandlePlusBtn')
   createNewTask(toDoListArray[toDoListArray.length - 1]);
 }
 
@@ -58,30 +57,46 @@ function createNewToDoList() {
 }
 
 function createNewTask(newToDoList) {
-  console.log('in createNewTask')
   var task = new ToDoTask({text: taskItemInput.value});
-  console.log('in createNewTask', task)
-
   addTaskToDom(event, task)
-  // console.log('first', newToDoList)
   newToDoList.addTask(task)
-  // console.log('second', newToDoList)
 }
 
 function addTaskToDom(event, task) {
-  console.log("in addTaskToDom")
   if (event.target.className === 'form__div--plusbtn' && taskItemInput.value !== '') {
-  taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" ><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${task.text}</li>`)
+  taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" data-id="${task.id}"><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${task.text}</li>`)
   }
   //Activate "Make Task List Button"
-  // clearTaskInput();
+  clearTaskInput();
+  disablePlusBtn()
 }
 
-function removeTask(event) {
+function deleteTask(event) {
   if (event.target.className === 'ul__li--deleteimg') {
     event.target.parentNode.remove();
+    taskObject = findTaskObject(event)
+    toDoListArray[toDoListArray.length - 1].removeTask(taskObject.id)
   }
 }
+
+function findTaskIndex(event) {
+  var taskIdentity = event.target.closest('.ul__li').dataset.id
+  var taskIndex = toDoListArray[toDoListArray.length - 1].tasks.findIndex(taskObj => {
+    return parseInt(taskIdentity) === taskObj.id;
+  })
+  return taskIndex
+}   
+
+function findTaskObject(event) {
+  var taskIndex = findTaskIndex(event)
+  var taskObject = toDoListArray[toDoListArray.length - 1].tasks[taskIndex] 
+  return taskObject
+}
+
+function findToDoIndex(event) {
+  var toDoIdentity = event.target.closest('article').dataset.id
+}
+
 
 function clearTaskInput() {
   taskItemInput.value = ''
@@ -101,7 +116,7 @@ function finalizeToDoList() {
 
 function createToDoListCard(newToDoList) {
 // const tasks = newToDoList.tasks
-cardSection.insertAdjacentHTML('afterbegin', `<article>
+cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${newToDoList.id}">
           <header class="article__header">
             <h2>${newToDoList.title}</h2>
           </header>
