@@ -47,7 +47,7 @@ function disablePlusBtn() {
 
 function disableMakeTaskListButton() {
   //how to check if there are any objects in DOM?
-  console.log(toDoListArray[toDoListArray.length - 1].tasks)
+  // console.log(toDoListArray[toDoListArray.length - 1].tasks)
   if (taskTitleInput.value === '' || toDoListArray[toDoListArray.length - 1].tasks.length === 0) {
     makeTaskListBtn.disabled = true;
   } else {
@@ -71,7 +71,7 @@ function addTaskToDom(event, task) {
   if (event.target.className === 'form__div--plusbtn' && taskItemInput.value !== '') {
   taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" data-id="${task.id}"><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${task.text}</li>`)
   }
-  clearTaskInput();
+  clearTaskItemInput();
   disablePlusBtn();
 }
 
@@ -103,33 +103,38 @@ function findToDoIndex(event) {
 }
 
 
-function clearTaskInput() {
-  taskItemInput.value = ''
+function clearTaskTitleInput() {
+  taskTitleInput.value = '';
 }
+
+function clearTaskItemInput() {
+  taskItemInput.value = '';
+}
+
 
 function finalizeToDoList() {
   var currentToDoList = toDoListArray[toDoListArray.length - 1];
   currentToDoList.addTitle(taskTitleInput.value);
   console.log(currentToDoList)
   // currentToDoList.saveToStorage();
-
-  // console.log(newTask)
-  // console.log(toDoListArray)
-  // createToDoListCard(currentToDoList);
+  createToDoListCard(currentToDoList);
+  clearTaskTitleInput();
+  //Clear DOM Function
   //create a newToDoList and add it to the array
 }
 
 
-function createToDoListCard(newToDoList) {
+function createToDoListCard(currentToDoList) {
 // const tasks = newToDoList.tasks
-cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${newToDoList.id}">
+cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoList.id}">
           <header class="article__header">
-            <h2>${newToDoList.title}</h2>
+            <h2>${currentToDoList.title}</h2>
           </header>
           <ul class="article__ul">
-          
-            <li class="article__ul--li"></li>
-            </ul>
+            ${currentToDoList.tasks.map(function (task){
+              return `<li>${task.text}</li>`
+              }).join('')}
+          </ul>
           </ul>
           <footer class="article__footer">
             <img class="article__footer--urgent" src="images/urgent.svg" alt="urgent img icon">
@@ -138,6 +143,11 @@ cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${newToDoList.id
         </article>`)
 }
 
+function returnToDoListTasks(currentToDoList) {
+  currentToDoList.tasks.map(function (task){
+    return `<li>${task.text}</li>`
+  }).join('')
+}
 
 function createTodoTask() {
   //You are setting and empty array to 'todotasks'
