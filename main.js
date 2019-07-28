@@ -1,5 +1,6 @@
 // *** Variables ***
 var form = document.querySelector('form')
+// var formUl = document.querySelector('.form__ul')
 var taskTitleInput = document.querySelector('#title')
 var taskList = document.querySelector('ul')
 var taskItemInput = document.querySelector('.form__div--input')
@@ -30,7 +31,7 @@ function handlePageLoad() {
 
 function handleMakeTaskListBtn() {
   finalizeToDoList();
-  // createNewToDoList();
+  // createNewToDoList(); //this pushes two with [0] empty
 }
 
 function handlePlusBtn() {
@@ -46,8 +47,6 @@ function disablePlusBtn() {
 }
 
 function disableMakeTaskListButton() {
-  //how to check if there are any objects in DOM?
-  console.log(toDoListArray[toDoListArray.length - 1].tasks)
   if (taskTitleInput.value === '' || toDoListArray[toDoListArray.length - 1].tasks.length === 0) {
     makeTaskListBtn.disabled = true;
   } else {
@@ -58,7 +57,7 @@ function disableMakeTaskListButton() {
 function createNewToDoList() {
   var newToDoList = new ToDoList({title: taskTitleInput.value});
   toDoListArray.push(newToDoList)
-  console.log(newToDoList)
+  console.log(toDoListArray)
 }
 
 function createNewTask(newToDoList) {
@@ -71,7 +70,7 @@ function addTaskToDom(event, task) {
   if (event.target.className === 'form__div--plusbtn' && taskItemInput.value !== '') {
   taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" data-id="${task.id}"><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${task.text}</li>`)
   }
-  clearTaskInput();
+  clearTaskItemInput();
   disablePlusBtn();
 }
 
@@ -103,33 +102,44 @@ function findToDoIndex(event) {
 }
 
 
-function clearTaskInput() {
-  taskItemInput.value = ''
+function clearTaskTitleInput() {
+  taskTitleInput.value = '';
 }
+
+function clearTaskItemInput() {
+  taskItemInput.value = '';
+}
+
 
 function finalizeToDoList() {
   var currentToDoList = toDoListArray[toDoListArray.length - 1];
   currentToDoList.addTitle(taskTitleInput.value);
-  console.log(currentToDoList)
   // currentToDoList.saveToStorage();
+  createToDoListCard(currentToDoList);
+  clearTaskTitleInput();
+  clearTasksFromDOM(currentToDoList);
+  createNewToDoList(event);
+}
 
-  // console.log(newTask)
-  // console.log(toDoListArray)
-  // createToDoListCard(currentToDoList);
-  //create a newToDoList and add it to the array
+function clearTasksFromDOM(currentToDoList) {
+  var nodes = Array.from(document.querySelector('.form__ul').childNodes);
+  nodes.forEach(node => {
+    node.remove();
+  })
 }
 
 
-function createToDoListCard(newToDoList) {
+function createToDoListCard(currentToDoList) {
 // const tasks = newToDoList.tasks
-cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${newToDoList.id}">
+cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoList.id}">
           <header class="article__header">
-            <h2>${newToDoList.title}</h2>
+            <h2>${currentToDoList.title}</h2>
           </header>
           <ul class="article__ul">
-          
-            <li class="article__ul--li"></li>
-            </ul>
+            ${currentToDoList.tasks.map(function (task){
+              return `<li>${task.text}</li>`
+              }).join('')}
+          </ul>
           </ul>
           <footer class="article__footer">
             <img class="article__footer--urgent" src="images/urgent.svg" alt="urgent img icon">
@@ -138,6 +148,11 @@ cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${newToDoList.id
         </article>`)
 }
 
+function returnToDoListTasks(currentToDoList) {
+  currentToDoList.tasks.map(function (task){
+    return `<li>${task.text}</li>`
+  }).join('')
+}
 
 function createTodoTask() {
   //You are setting and empty array to 'todotasks'
