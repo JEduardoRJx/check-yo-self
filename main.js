@@ -5,7 +5,7 @@ var taskList = document.querySelector('ul')
 var taskItemInput = document.querySelector('.form__div--input')
 var plusBtn = document.querySelector('.form__div--plusbtn')
 var deleteImg = document.querySelector('.ul__li--img')
-var makeTaskListBtn = document.querySelector('.form__btn--task')
+var makeTaskListBtn = document.querySelector('.form__btn--maketasklist')
 var cardSection = document.querySelector('section')
 var toDoListArray = [];
 
@@ -14,21 +14,23 @@ var toDoListArray = [];
 window.addEventListener('load', handlePageLoad)
 plusBtn.addEventListener('click', handlePlusBtn)
 form.addEventListener('click', deleteTask)
-taskItemInput.addEventListener('keyup', disablePlusBtn)
 taskTitleInput.addEventListener('keyup', disablePlusBtn)
-
+taskItemInput.addEventListener('keyup', disablePlusBtn)
+taskTitleInput.addEventListener('keyup', disableMakeTaskListButton)
+taskItemInput.addEventListener('keyup', disableMakeTaskListButton)
+plusBtn.addEventListener('click', disableMakeTaskListButton)
 makeTaskListBtn.addEventListener('click', handleMakeTaskListBtn)
 
 // *** Functionality | Handlers 1st ***
 function handlePageLoad() {
-  disablePlusBtn();
-  // disableMakeTaskListButton();
   createNewToDoList();
+  disablePlusBtn();
+  disableMakeTaskListButton();
 }
 
 function handleMakeTaskListBtn() {
+  finalizeToDoList();
   // createNewToDoList();
-  // finalizeToDoList();
 }
 
 function handlePlusBtn() {
@@ -36,7 +38,6 @@ function handlePlusBtn() {
 }
 
 function disablePlusBtn() {
-  // taskItemInput.value === '' && taskTitleInput.value === '' ? plusBtn.disabled = true : plusBtn.disabled = false;
   if (taskTitleInput.value === '' || taskItemInput.value === '') {
     plusBtn.disabled = true;
   } else {
@@ -44,16 +45,20 @@ function disablePlusBtn() {
   }
 }
 
-function disableTaskListButton() {
+function disableMakeTaskListButton() {
   //how to check if there are any objects in DOM?
-
+  console.log(toDoListArray[toDoListArray.length - 1].tasks)
+  if (taskTitleInput.value === '' || toDoListArray[toDoListArray.length - 1].tasks.length === 0) {
+    makeTaskListBtn.disabled = true;
+  } else {
+    makeTaskListBtn.disabled = false;
+  }
 }
 
 function createNewToDoList() {
   var newToDoList = new ToDoList({title: taskTitleInput.value});
   toDoListArray.push(newToDoList)
   console.log(newToDoList)
-  // createNewTask(newToDoList);
 }
 
 function createNewTask(newToDoList) {
@@ -66,9 +71,8 @@ function addTaskToDom(event, task) {
   if (event.target.className === 'form__div--plusbtn' && taskItemInput.value !== '') {
   taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" data-id="${task.id}"><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${task.text}</li>`)
   }
-  //Activate "Make Task List Button"
   clearTaskInput();
-  disablePlusBtn()
+  disablePlusBtn();
 }
 
 function deleteTask(event) {
@@ -77,6 +81,7 @@ function deleteTask(event) {
     taskObject = findTaskObject(event)
     toDoListArray[toDoListArray.length - 1].removeTask(taskObject.id)
   }
+  disableMakeTaskListButton();
 }
 
 function findTaskIndex(event) {
@@ -103,13 +108,14 @@ function clearTaskInput() {
 }
 
 function finalizeToDoList() {
-  var currentToDoList = toDoListArray[0];
-  currentToDoList.addTitle(taskTitle.value);
+  var currentToDoList = toDoListArray[toDoListArray.length - 1];
+  currentToDoList.addTitle(taskTitleInput.value);
+  console.log(currentToDoList)
   // currentToDoList.saveToStorage();
 
   // console.log(newTask)
   // console.log(toDoListArray)
-  createToDoListCard(currentToDoList);
+  // createToDoListCard(currentToDoList);
   //create a newToDoList and add it to the array
 }
 
