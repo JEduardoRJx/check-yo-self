@@ -1,5 +1,6 @@
 // *** Variables ***
 var form = document.querySelector('form')
+// var formUl = document.querySelector('.form__ul')
 var taskTitleInput = document.querySelector('#title')
 var taskList = document.querySelector('ul')
 var taskItemInput = document.querySelector('.form__div--input')
@@ -30,7 +31,7 @@ function handlePageLoad() {
 
 function handleMakeTaskListBtn() {
   finalizeToDoList();
-  // createNewToDoList();
+  // createNewToDoList(); //this pushes two with [0] empty
 }
 
 function handlePlusBtn() {
@@ -46,8 +47,6 @@ function disablePlusBtn() {
 }
 
 function disableMakeTaskListButton() {
-  //how to check if there are any objects in DOM?
-  // console.log(toDoListArray[toDoListArray.length - 1].tasks)
   if (taskTitleInput.value === '' || toDoListArray[toDoListArray.length - 1].tasks.length === 0) {
     makeTaskListBtn.disabled = true;
   } else {
@@ -58,7 +57,7 @@ function disableMakeTaskListButton() {
 function createNewToDoList() {
   var newToDoList = new ToDoList({title: taskTitleInput.value});
   toDoListArray.push(newToDoList)
-  console.log(newToDoList)
+  console.log(toDoListArray)
 }
 
 function createNewTask(newToDoList) {
@@ -115,12 +114,18 @@ function clearTaskItemInput() {
 function finalizeToDoList() {
   var currentToDoList = toDoListArray[toDoListArray.length - 1];
   currentToDoList.addTitle(taskTitleInput.value);
-  console.log(currentToDoList)
   // currentToDoList.saveToStorage();
   createToDoListCard(currentToDoList);
   clearTaskTitleInput();
-  //Clear DOM Function
-  //create a newToDoList and add it to the array
+  clearTasksFromDOM(currentToDoList);
+  createNewToDoList(event);
+}
+
+function clearTasksFromDOM(currentToDoList) {
+  var nodes = Array.from(document.querySelector('.form__ul').childNodes);
+  nodes.forEach(node => {
+    node.remove();
+  })
 }
 
 
