@@ -23,7 +23,25 @@ plusBtn.addEventListener('click', disableMakeTaskListButton)
 makeTaskListBtn.addEventListener('click', handleMakeTaskListBtn)
 
 // *** Functionality | Handlers 1st ***
+function checkStorage() {
+  if (JSON.parse(localStorage.getItem('toDoList')) === null) {
+    toDoListArray = [];
+  } else {
+    toDoListArray = JSON.parse(localStorage.getItem('toDoList')).map(function(element) {
+      return new ToDoList(element);
+    })
+  }
+}
+
+function appendLists() {
+  for (var index = 0; index < toDoListArray.length; index++) {
+    createToDoListCard(toDoListArray[index])
+  }
+}
+
 function handlePageLoad() {
+  checkStorage();
+  appendLists();
   createNewToDoList();
   disablePlusBtn();
   disableMakeTaskListButton();
@@ -114,7 +132,7 @@ function clearTaskItemInput() {
 function finalizeToDoList() {
   var currentToDoList = toDoListArray[toDoListArray.length - 1];
   currentToDoList.addTitle(taskTitleInput.value);
-  // currentToDoList.saveToStorage();
+  currentToDoList.saveToStorage(toDoListArray);
   createToDoListCard(currentToDoList);
   clearTaskTitleInput();
   clearTasksFromDOM(currentToDoList);
@@ -158,28 +176,3 @@ function createTodoTask() {
   //You are setting and empty array to 'todotasks'
   localStorage.setItem('todoTasks', JSON.stringify([]));
 }
-
-
-// //Chris code
-// function cardInstance(e) {
-//   e.preventDefault();
-//   //You setting todoTasks to an empty array by getting 'todoTasks' then parsing it aka todoTasks = []
-//   var todoTasks = JSON.parse(localStorage.getItem('todoTasks'));
-//   //you are instantiating a new instance of the ToDoList class passing it
-//   //the date.now, the Title, and an empty array
-//   var taskCard = new ToDoList(Date.now(), titleInput.value, todoTasks);
-//   //Then you are pushing that new Instance of the ToDoList class into the
-//   //todoList Array
-//   cardsArray.push(taskCard);
-//   //You call saveToStorage on the new instance and pass it in the array to save it to storage
-//   taskCard.saveToStorage(cardsArray);
-//   //If 'todolistArray' is set to something
-//   if (localStorage.getItem('todoListArray')) {
-//     //invoke createtodoTask which sets a stringified empty array
-//     createTodoTask();
-//     //then remove the strinified array from storage
-//     localStorage.removeItem('todoTasks');
-//   }
-//   //invoke generate card passing it the instance of todoList
-//   generateCard(taskCard);
-// }

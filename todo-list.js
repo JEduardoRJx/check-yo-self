@@ -3,7 +3,6 @@ class ToDoList {
     this.id = listObj.id || Date.now();
     this.title = listObj.title;
     this.urgent = listObj.urgent || false;
-    //list tasks should be an array of ToDoItems
     this.tasks = listObj.tasks || [];
   }
 
@@ -24,9 +23,8 @@ class ToDoList {
     this.title = title;
   }
 
-  saveToStorage(tasksArray) {
-    localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
-    // localStorage.setItem('taskArr',)
+  saveToStorage(toDoListArray) {
+    localStorage.setItem('toDoList', JSON.stringify(toDoListArray));
   }
 
   deleteFromStorage() {
