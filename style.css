@@ -111,7 +111,7 @@ ul {
   color: #FFFFFF;
 }
 
-.ul__li--img {
+.ul__li--deleteimg {
   margin-right: 5px;
 }
 
@@ -133,7 +133,7 @@ ul {
   border: none;
 }
 
-.form__div--img {
+.form__div--plusbtn {
   background-color: #1F1F3D;
   width: 13%;
   padding: 3%;
@@ -141,14 +141,19 @@ ul {
   /*border-radius: 3px 0px 0px 3px;*/
 }
 
+.form__div--plusbtn:disabled {
+  background-color: #C0CDD3;
+  color: #6D8B99;
+}
+
 button {
   background-color: #1F1F3D;
   color: #FFFFFF;
   border: none;
   width: 100%;
-  height: 30px;
+  height: 60px;
   border-radius: 2px;
-  font-size: 1em;
+  font-size: 1.5em;
 }
 
 .form__btn--task {
@@ -176,7 +181,6 @@ section {
   padding:  1.25em;
   width:  100%; 
 }
-
 
 /* *** Article | Card *** */
 article {
