@@ -142,7 +142,8 @@ ul {
 }
 
 .form__div--plusbtn:disabled,
-.form__btn--maketasklist:disabled {
+.form__btn--maketasklist:disabled,
+.form__btn--clear:disabled {
   background-color: #C0CDD3;
   color: #6D8B99;
 }

@@ -1,12 +1,12 @@
 // *** Variables ***
 var form = document.querySelector('form')
-// var formUl = document.querySelector('.form__ul')
 var taskTitleInput = document.querySelector('#title')
 var taskList = document.querySelector('ul')
 var taskItemInput = document.querySelector('.form__div--input')
 var plusBtn = document.querySelector('.form__div--plusbtn')
 var deleteImg = document.querySelector('.ul__li--img')
 var makeTaskListBtn = document.querySelector('.form__btn--maketasklist')
+var clearBtn = document.querySelector('.form__btn--clear')
 var cardSection = document.querySelector('section')
 var toDoListArray = [];
 
@@ -20,7 +20,9 @@ taskItemInput.addEventListener('keyup', disablePlusBtn)
 taskTitleInput.addEventListener('keyup', disableMakeTaskListButton)
 taskItemInput.addEventListener('keyup', disableMakeTaskListButton)
 plusBtn.addEventListener('click', disableMakeTaskListButton)
+taskTitleInput.addEventListener('keyup', disableClearBtn)
 makeTaskListBtn.addEventListener('click', handleMakeTaskListBtn)
+clearBtn.addEventListener('click', handleClearBtn)
 
 // *** Functionality | Handlers 1st ***
 function checkStorage() {
@@ -45,6 +47,7 @@ function handlePageLoad() {
   createNewToDoList();
   disablePlusBtn();
   disableMakeTaskListButton();
+  disableClearBtn();
 }
 
 function handleMakeTaskListBtn() {
@@ -54,6 +57,23 @@ function handleMakeTaskListBtn() {
 
 function handlePlusBtn() {
   createNewTask(toDoListArray[toDoListArray.length - 1]);
+}
+
+function handleClearBtn() {
+  clearTaskTitleInput();
+  clearTasksFromDOM(toDoListArray[toDoListArray.length - 1]);
+}
+
+function disableClearBtn() {
+  var nodes = Array.from(document.querySelector('.form__ul').childNodes);
+  // console.log(nodes)
+  if (taskTitleInput.value === '') {
+    clearBtn.disabled = true;
+    // console.log("1", nodes)
+    console.log(taskTitleInput.value)
+  } else {
+    clearBtn.disabled = false;
+  }
 }
 
 function disablePlusBtn() {
