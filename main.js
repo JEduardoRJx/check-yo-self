@@ -66,11 +66,8 @@ function handleClearBtn() {
 
 function disableClearBtn() {
   var nodes = Array.from(document.querySelector('.form__ul').childNodes);
-  // console.log(nodes)
   if (taskTitleInput.value === '') {
     clearBtn.disabled = true;
-    // console.log("1", nodes)
-    console.log(taskTitleInput.value)
   } else {
     clearBtn.disabled = false;
   }
@@ -175,7 +172,7 @@ cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoLis
           </header>
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
-              return `<li>${task.text}</li>`
+              return `<li class="article__ul--li"><img class="article__ul--checkboximg" src="images/checkbox.svg" alt="checkbox img icon">${task.text}</li>`
               }).join('')}
           </ul>
           </ul>
