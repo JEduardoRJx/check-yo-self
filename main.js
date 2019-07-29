@@ -23,27 +23,29 @@ plusBtn.addEventListener('click', disableMakeTaskListButton)
 taskTitleInput.addEventListener('keyup', disableClearBtn)
 makeTaskListBtn.addEventListener('click', handleMakeTaskListBtn)
 clearBtn.addEventListener('click', handleClearBtn)
+cardSection.addEventListener('click', handleToDoListCardBehavior)
 
 // *** Functionality | Handlers 1st ***
-function checkStorage() {
+function checkToDoListStorage() {
   if (JSON.parse(localStorage.getItem('toDoList')) === null) {
     toDoListArray = [];
   } else {
-    toDoListArray = JSON.parse(localStorage.getItem('toDoList')).map(function(element) {
+    toDoListArray = JSON.parse(localStorage.getItem('toDoList')).map(element => {
       return new ToDoList(element);
     })
   }
 }
 
-function appendLists() {
+function appendToDoList() {
   for (var index = 0; index < toDoListArray.length; index++) {
     createToDoListCard(toDoListArray[index])
   }
 }
 
 function handlePageLoad() {
-  checkStorage();
-  appendLists();
+  checkToDoListStorage();
+  // persistToDoList(toDoListArray);
+  appendToDoList();
   createNewToDoList();
   disablePlusBtn();
   disableMakeTaskListButton();
@@ -64,13 +66,14 @@ function handleClearBtn() {
   clearTasksFromDOM(toDoListArray[toDoListArray.length - 1]);
 }
 
+function handleToDoListCardBehavior() {
+  toggleCheckBoxImg(event);
+}
+
 function disableClearBtn() {
   var nodes = Array.from(document.querySelector('.form__ul').childNodes);
-  // console.log(nodes)
   if (taskTitleInput.value === '') {
     clearBtn.disabled = true;
-    // console.log("1", nodes)
-    console.log(taskTitleInput.value)
   } else {
     clearBtn.disabled = false;
   }
@@ -95,11 +98,11 @@ function disableMakeTaskListButton() {
 function createNewToDoList() {
   var newToDoList = new ToDoList({title: taskTitleInput.value});
   toDoListArray.push(newToDoList)
-  console.log(toDoListArray)
 }
 
 function createNewTask(newToDoList) {
   var task = new ToDoTask({text: taskItemInput.value});
+
   addTaskToDom(event, task)
   newToDoList.addTask(task)
 }
@@ -114,30 +117,42 @@ function addTaskToDom(event, task) {
 
 function deleteTask(event) {
   if (event.target.className === 'ul__li--deleteimg') {
+    var currentToDoList = toDoListArray.length - 1
     event.target.parentNode.remove();
-    taskObject = findTaskObject(event)
-    toDoListArray[toDoListArray.length - 1].removeTask(taskObject.id)
+    taskObject = findTaskObject(event, currentToDoList, '.ul__li')
+    toDoListArray[currentToDoList].removeTask(taskObject.id)
   }
   disableMakeTaskListButton();
 }
 
-function findTaskIndex(event) {
-  var taskIdentity = event.target.closest('.ul__li').dataset.id
-  var taskIndex = toDoListArray[toDoListArray.length - 1].tasks.findIndex(taskObj => {
+function findTaskIndex(event, currentToDoList, className) {
+  var taskIdentity = event.target.closest(className).dataset.id
+  var taskIndex = toDoListArray[currentToDoList].tasks.findIndex(taskObj => {
     return parseInt(taskIdentity) === taskObj.id;
   })
   return taskIndex
 }   
 
-function findTaskObject(event) {
-  var taskIndex = findTaskIndex(event)
-  var taskObject = toDoListArray[toDoListArray.length - 1].tasks[taskIndex] 
+function findTaskObject(event, currentToDoList, className) {
+  var taskIndex = findTaskIndex(event, currentToDoList, className)
+  var taskObject = toDoListArray[currentToDoList].tasks[taskIndex] 
   return taskObject
 }
 
-function findToDoIndex(event) {
-  var toDoIdentity = event.target.closest('article').dataset.id
+function findToDoIndex(event, toDoListArray, className) {
+  var toDoIdentity = event.target.closest(className).dataset.id
+  var toDoIndex = toDoListArray.findIndex(toDoObj => {
+    return parseInt(toDoIdentity) === toDoObj.id
+  })
+  return toDoIndex
 }
+
+function findToDoObject(event, toDoListArray, className) {
+  var toDoListIndex = findToDoIndex(event, toDoListArray, className)
+  var toDoListObject = toDoListArray[toDoListIndex]
+  return toDoListObject
+}
+
 
 
 function clearTaskTitleInput() {
@@ -168,14 +183,14 @@ function clearTasksFromDOM(currentToDoList) {
 
 
 function createToDoListCard(currentToDoList) {
-// const tasks = newToDoList.tasks
-cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoList.id}">
+  var checkBoxImg = currentToDoList.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
+  cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoList.id}">
           <header class="article__header">
             <h2>${currentToDoList.title}</h2>
           </header>
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
-              return `<li>${task.text}</li>`
+              return `<li class="article__ul--li" data-id="${task.id}"><img class="article__ul--checkboximg" src="${checkBoxImg}" alt="checkbox img icon">${task.text}</li>`
               }).join('')}
           </ul>
           </ul>
@@ -186,13 +201,27 @@ cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoLis
         </article>`)
 }
 
+function toggleCheckBoxImg(event) {
+  if(event.target.parentNode.className === 'article__ul--li') {
+    var currentToDoListIndex = findToDoIndex(event, toDoListArray, 'article')
+    var currentToDoList = toDoListArray[currentToDoListIndex]
+    var taskIndex = findTaskIndex(event, currentToDoListIndex, '.article__ul--li')
+    var taskObject = currentToDoList.tasks[taskIndex]
+    currentToDoList.completeTask(taskObject)
+    var checkBoxImg = taskObject.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
+    event.target.setAttribute('src', checkBoxImg)
+  }
+    currentToDoList.saveToStorage(toDoListArray)
+  // persistToDoList(toDoListArray);
+}
+
 function returnToDoListTasks(currentToDoList) {
   currentToDoList.tasks.map(function (task){
     return `<li>${task.text}</li>`
   }).join('')
 }
 
-function createTodoTask() {
-  //You are setting and empty array to 'todotasks'
-  localStorage.setItem('todoTasks', JSON.stringify([]));
-}
+// function createTodoTask() {
+//   //You are setting and empty array to 'todotasks'
+//   localStorage.setItem('todoTasks', JSON.stringify([]));
+// }

@@ -207,7 +207,14 @@ h2 {
 }
 
 .article__ul--li {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  color: #1F1F3D;
+}
 
+.article__ul--checkboximg {
+  margin-right: 5px
 }
 
 .article__footer {
