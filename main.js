@@ -53,7 +53,7 @@ function handleClearBtn() {
 
 function handleToDoListCardBehavior() {
   toggleCheckBoxImg(event);
-  removeToDoListCard(event);
+  removeToDoListFromDOM(event);
 }
 
 function checkToDoListStorage() {
@@ -208,16 +208,15 @@ function findToDoIndex(event, toDoListArray, className) {
 
 
 function createToDoListCard(currentToDoList) {
-
-  // console.log("CheckBoxIMG")
   cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoList.id}">
           <header class="article__header">
             <h2>${currentToDoList.title}</h2>
           </header>
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
-                var checkBoxImg = task.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
                 var toggleClass = task.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
+                var checkBoxImg = task.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
+                // console.log("toggleClass", toggleClass)
               return `<li class="article__ul--li" data-id="${task.id}"><img class="${toggleClass}" src="${checkBoxImg}" alt="checkbox img icon">${task.text}</li>`
               }).join('')}
           </ul>
@@ -235,23 +234,26 @@ function toggleCheckBoxImg(event) {
     var currentToDoList = toDoListArray[currentToDoListIndex]
     var taskIndex = findTaskIndex(event, currentToDoListIndex, '.article__ul--li')
     var taskObject = currentToDoList.tasks[taskIndex]
-    currentToDoList.completeTask(taskObject)
+    currentToDoList.completeTask(taskObject); //false 2 True or Vice Versa
     var checkBoxImg = taskObject.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
-    console.log(checkBoxImg)
+    var toggleClass = taskObject.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
+    event.target.setAttribute('class', toggleClass)
     event.target.setAttribute('src', checkBoxImg)
-    console.log(currentToDoList instanceof ToDoList)
-    currentToDoList.updateTask(currentToDoList)
+    currentToDoList.saveToStorage(toDoListArray)
   }
 }
 
-function removeToDoListCard(event) {
-  if (event.target.classList[0] === 'article__footer--delete')
-  toDoListCard = event.target.closest('article');
-  toDoListIndex = findToDoIndex(event, toDoListArray, 'article')
-  card = toDoListCard.querySelectorAll('.article__ul--checkboximgincomplete').length
-  if(card === 0) {
-    toDoListCard.remove();
-  
+function removeToDoListFromDOM(event) {
+  if (event.target.className === 'article__footer--delete') {
+    toDoListCard = event.target.closest('article');
+    toDoListIndex = findToDoIndex(event, toDoListArray, 'article')
+    uncheckedTasks = toDoListCard.querySelectorAll('.article__ul--checkboximgincomplete').length
+    var toDoListObject = toDoListArray[toDoListIndex]
+    console.log(uncheckedTasks)
+    if (uncheckedTasks === 0) {
+      toDoListCard.remove();
+      toDoListObject.deleteFromStorage(toDoListIndex, toDoListArray)
+    }
   }
 }
 
