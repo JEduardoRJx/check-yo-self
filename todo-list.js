@@ -39,7 +39,7 @@ class ToDoList {
 
   }
 
-  updateTask() {
-
+  updateTask(currentToDoList) {
+    currentToDoList.saveToStorage(toDoListArray)
   }
 }
