@@ -177,11 +177,12 @@ button {
 
 /* *** SECTION | Cards *** */
 section {
-  column-width: 21em;
   background-color: #F3F6F7;
   display: inline-block;
-  padding:  1.25em;
+  padding:  1em;
   width:  100%; 
+  column-count: 3;
+  column-width: 15em
 }
 
 /* *** Article | Card *** */
@@ -189,9 +190,10 @@ article {
   background-color: #FAFDFF;
   border: 2px solid #C7D3D8;
   display: inline-block;
-  margin:  .5em;
   padding:  1rem;
   width:  100%;
+  margin-bottom: 12px;
+  color: #1F1F3D;
 }
 
 .article__header {
