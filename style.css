@@ -41,7 +41,7 @@ header {
 
 h1 {
   color: #FFFFFF;
-  font-size: 3em;
+  font-size: 2.75em;
 }
 
 span {
@@ -70,7 +70,7 @@ span {
 /* ***MAIN*** */
 main {
   display: flex;
-  height: 100vh;
+  height: 100%;
 }
 
 /* *** ASIDE | Form *** */
@@ -78,17 +78,18 @@ aside {
   background-color: #587A8A;
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 700px;
   border-right: 2px solid #1F1F3D;
 }
 
 form {
   padding: 15px;
+  border-bottom: 1px solid #1F1F3D;
 }
 
 label {
   display: block;
-  color: #FFFFFF;
+  color: #C8D1D6;
 }
 
 .form__label--title {
@@ -102,6 +103,8 @@ label {
 
 ul {
   list-style: none;
+  margin: 20px 0px;
+  padding-inline-start: 20px;
 }
 
 .ul__li {
@@ -109,6 +112,7 @@ ul {
   align-items: center;
   font-size: 1.5em;
   color: #FFFFFF;
+  margin: 15px 0px;
 }
 
 .ul__li--deleteimg {
@@ -159,20 +163,20 @@ button {
 }
 
 .form__btn--maketasklist {
-  margin: 10px 0;
+  margin: 25px 0;
 }
 
 .form__btn--clear {
-
+  margin-bottom: 20px;
 }
 
 .aside__btn {
 
 }
 
-.aside__btn {
-  width: 95%;
-  margin: 0 10px;
+.aside__div--btn {
+  margin: 20px 0px;
+  padding: 0 15px;
 }
 
 /* *** SECTION | Cards *** */
@@ -198,7 +202,7 @@ article {
 
 .article__urgent {
   background-color: #FFE89D;
-  
+
 }
 
 .article__header {
