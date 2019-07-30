@@ -237,7 +237,8 @@ function toggleCheckBoxImg(event) {
     var checkBoxImg = taskObject.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
     console.log(checkBoxImg)
     event.target.setAttribute('src', checkBoxImg)
-    currentToDoList.saveToStorage(toDoListArray)
+    console.log(currentToDoList instanceof ToDoList)
+    currentToDoList.updateTask(currentToDoList)
   }
 }
 
