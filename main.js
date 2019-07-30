@@ -54,6 +54,7 @@ function handleClearBtn() {
 function handleToDoListCardBehavior() {
   toggleCheckBoxImg(event);
   removeToDoListFromDOM(event);
+  toggleUrgent(event);
 }
 
 function checkToDoListStorage() {
@@ -208,21 +209,22 @@ function findToDoIndex(event, toDoListArray, className) {
 
 
 function createToDoListCard(currentToDoList) {
+var urgentImg = currentToDoList.urgent ? 'images/urgent-active.svg' : 'images/urgent.svg'
+var toggleUrgentClass = currentToDoList.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
   cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoList.id}">
           <header class="article__header">
             <h2>${currentToDoList.title}</h2>
           </header>
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
-                var toggleClass = task.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
+                var toggleCheckBoxClass = task.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
                 var checkBoxImg = task.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
-                // console.log("toggleClass", toggleClass)
-              return `<li class="article__ul--li" data-id="${task.id}"><img class="${toggleClass}" src="${checkBoxImg}" alt="checkbox img icon">${task.text}</li>`
+              return `<li class="article__ul--li" data-id="${task.id}"><img class="${toggleCheckBoxClass}" src="${checkBoxImg}" alt="checkbox img icon">${task.text}</li>`
               }).join('')}
           </ul>
           </ul>
           <footer class="article__footer">
-            <img class="article__footer--urgent" src="images/urgent.svg" alt="urgent img icon">
+            <img class="${toggleUrgentClass}" src="${urgentImg}">
             <img class="article__footer--delete" src="images/delete.svg" alt="delete img icon">
           </footer>
         </article>`)
@@ -236,10 +238,26 @@ function toggleCheckBoxImg(event) {
     var taskObject = currentToDoList.tasks[taskIndex]
     currentToDoList.completeTask(taskObject); //false 2 True or Vice Versa
     var checkBoxImg = taskObject.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
-    var toggleClass = taskObject.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
-    event.target.setAttribute('class', toggleClass)
+    var toggleCheckBoxClass = taskObject.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
+    event.target.setAttribute('class', toggleCheckBoxClass)
     event.target.setAttribute('src', checkBoxImg)
     currentToDoList.saveToStorage(toDoListArray)
+  }
+}
+
+function toggleUrgent(event) {
+  if (event.target.parentNode.className === 'article__footer') {
+    var currentToDoListIndex = findToDoIndex(event, toDoListArray, 'article');
+    var currentToDoListCard = event.target.closest('article')
+    var currentToDoListObject = toDoListArray[currentToDoListIndex]
+    currentToDoListObject.markUrgent();
+    console.log(currentToDoListObject.urgent)
+    var urgentImg = currentToDoListObject.urgent ? 'images/urgent-active.svg' : 'images/urgent.svg'
+    var toggleUrgentClass = currentToDoListObject.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
+    event.target.setAttribute('class', toggleUrgentClass)
+    event.target.setAttribute('src', urgentImg)
+    currentToDoListObject.saveToStorage(toDoListArray)
+
   }
 }
 
