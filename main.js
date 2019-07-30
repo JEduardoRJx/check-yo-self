@@ -210,11 +210,11 @@ function findToDoIndex(event, toDoListArray, className) {
 
 function createToDoListCard(currentToDoList) {
 var urgentImg = currentToDoList.urgent ? 'images/urgent-active.svg' : 'images/urgent.svg'
+var articleUrgentClass = currentToDoList.urgent ? 'article__urgent' : 'article__noturgent'
 var toggleUrgentClass = currentToDoList.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
-  cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoList.id}">
-          <header class="article__header">
+
+  cardSection.insertAdjacentHTML('afterbegin', `<article class='' data-id="${currentToDoList.id}">
             <h2>${currentToDoList.title}</h2>
-          </header>
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
                 var toggleCheckBoxClass = task.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
@@ -224,7 +224,7 @@ var toggleUrgentClass = currentToDoList.urgent ? 'article__footer--urgent' : 'ar
           </ul>
           </ul>
           <footer class="article__footer">
-            <img class="${toggleUrgentClass}" src="${urgentImg}">
+            <img class="${toggleUrgentClass}" id="urgent" src="${urgentImg}">
             <img class="article__footer--delete" src="images/delete.svg" alt="delete img icon">
           </footer>
         </article>`)
@@ -246,18 +246,19 @@ function toggleCheckBoxImg(event) {
 }
 
 function toggleUrgent(event) {
-  if (event.target.parentNode.className === 'article__footer') {
     var currentToDoListIndex = findToDoIndex(event, toDoListArray, 'article');
     var currentToDoListCard = event.target.closest('article')
     var currentToDoListObject = toDoListArray[currentToDoListIndex]
     currentToDoListObject.markUrgent();
-    console.log(currentToDoListObject.urgent)
+
+  if (event.target.id === 'urgent') {
     var urgentImg = currentToDoListObject.urgent ? 'images/urgent-active.svg' : 'images/urgent.svg'
     var toggleUrgentClass = currentToDoListObject.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
+    var articleUrgentClass = currentToDoListObject.urgent ? 'article__urgent' : 'article__noturgent'
+    event.target.setAttribute('class', articleUrgentClass)
     event.target.setAttribute('class', toggleUrgentClass)
     event.target.setAttribute('src', urgentImg)
     currentToDoListObject.saveToStorage(toDoListArray)
-
   }
 }
 
