@@ -196,6 +196,11 @@ article {
   color: #1F1F3D;
 }
 
+.article__urgent {
+  background-color: #FFE89D;
+  
+}
+
 .article__header {
   background-color: #FAFDFF;
 }
@@ -225,6 +230,10 @@ h2 {
 }
 
 .article__footer--urgent {
+  background-color: #FFE89D;
+}
+
+.article__footer--noturgent {
 
 }
 

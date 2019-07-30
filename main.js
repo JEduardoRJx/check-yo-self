@@ -213,7 +213,7 @@ var urgentImg = currentToDoList.urgent ? 'images/urgent-active.svg' : 'images/ur
 var articleUrgentClass = currentToDoList.urgent ? 'article__urgent' : 'article__noturgent'
 var toggleUrgentClass = currentToDoList.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
 
-  cardSection.insertAdjacentHTML('afterbegin', `<article class='' data-id="${currentToDoList.id}">
+  cardSection.insertAdjacentHTML('afterbegin', `<article class=${articleUrgentClass} data-id="${currentToDoList.id}">
             <h2>${currentToDoList.title}</h2>
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
@@ -253,11 +253,11 @@ function toggleUrgent(event) {
 
   if (event.target.id === 'urgent') {
     var urgentImg = currentToDoListObject.urgent ? 'images/urgent-active.svg' : 'images/urgent.svg'
-    var toggleUrgentClass = currentToDoListObject.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
     var articleUrgentClass = currentToDoListObject.urgent ? 'article__urgent' : 'article__noturgent'
-    event.target.setAttribute('class', articleUrgentClass)
-    event.target.setAttribute('class', toggleUrgentClass)
-    event.target.setAttribute('src', urgentImg)
+    // var toggleUrgentClass = currentToDoListObject.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
+    // event.target.setAttribute('src', urgentImg)
+    event.target.parentNode.parentNode.setAttribute('class', articleUrgentClass)
+    // event.target.setAttribute('class', toggleUrgentClass)
     currentToDoListObject.saveToStorage(toDoListArray)
   }
 }
