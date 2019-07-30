@@ -53,6 +53,7 @@ function handleClearBtn() {
 
 function handleToDoListCardBehavior() {
   toggleCheckBoxImg(event);
+  removeToDoListCard(event);
 }
 
 function checkToDoListStorage() {
@@ -216,7 +217,8 @@ function createToDoListCard(currentToDoList) {
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
                 var checkBoxImg = task.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
-              return `<li class="article__ul--li" data-id="${task.id}"><img class="article__ul--checkboximg" src="${checkBoxImg}" alt="checkbox img icon">${task.text}</li>`
+                var toggleClass = task.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
+              return `<li class="article__ul--li" data-id="${task.id}"><img class="${toggleClass}" src="${checkBoxImg}" alt="checkbox img icon">${task.text}</li>`
               }).join('')}
           </ul>
           </ul>
@@ -239,6 +241,17 @@ function toggleCheckBoxImg(event) {
     event.target.setAttribute('src', checkBoxImg)
     console.log(currentToDoList instanceof ToDoList)
     currentToDoList.updateTask(currentToDoList)
+  }
+}
+
+function removeToDoListCard(event) {
+  if (event.target.classList[0] === 'article__footer--delete')
+  toDoListCard = event.target.closest('article');
+  toDoListIndex = findToDoIndex(event, toDoListArray, 'article')
+  card = toDoListCard.querySelectorAll('.article__ul--checkboximgincomplete').length
+  if(card === 0) {
+    toDoListCard.remove();
+  
   }
 }
 
