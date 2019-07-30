@@ -26,22 +26,6 @@ clearBtn.addEventListener('click', handleClearBtn)
 cardSection.addEventListener('click', handleToDoListCardBehavior)
 
 // *** Functionality | Handlers 1st ***
-function checkToDoListStorage() {
-  if (JSON.parse(localStorage.getItem('toDoList')) === null) {
-    toDoListArray = [];
-  } else {
-    toDoListArray = JSON.parse(localStorage.getItem('toDoList')).map(element => {
-      return new ToDoList(element);
-    })
-  }
-}
-
-function appendToDoList() {
-  for (var index = 0; index < toDoListArray.length; index++) {
-    createToDoListCard(toDoListArray[index])
-  }
-}
-
 function handlePageLoad() {
   checkToDoListStorage();
   // persistToDoList(toDoListArray);
@@ -71,6 +55,22 @@ function handleToDoListCardBehavior() {
   toggleCheckBoxImg(event);
 }
 
+function checkToDoListStorage() {
+  if (JSON.parse(localStorage.getItem('toDoList')) === null) {
+    toDoListArray = [];
+  } else {
+    toDoListArray = JSON.parse(localStorage.getItem('toDoList')).map(element => {
+      return new ToDoList(element);
+    })
+  }
+}
+
+function appendToDoList() {
+  for (var index = 0; index < toDoListArray.length; index++) {
+    createToDoListCard(toDoListArray[index])
+  }
+}
+
 function disableClearBtn() {
   var nodes = Array.from(document.querySelector('.form__ul').childNodes);
   if (taskTitleInput.value === '' || nodes.length > 0) {
@@ -97,18 +97,35 @@ function disableMakeTaskListButton() {
   }
 }
 
+function clearTitleInput() {
+  taskTitleInput.value = '';
+}
+
+function clearItemInput() {
+  taskItemInput.value = '';
+}
+
+function clearTasksFromDOM() {
+  var nodes = Array.from(document.querySelector('.form__ul').childNodes);
+  nodes.forEach(node => {
+    node.remove();
+  })
+}
+
 function createNewToDoList() {
   var newToDoList = new ToDoList({title: taskTitleInput.value});
   toDoListArray.push(newToDoList)
 }
 
-function createNewTask(newToDoList) {
-  var task = new ToDoTask({text: taskItemInput.value});
+//***DELETE function createNewTask
+// function createNewTask(newToDoList) {
+//   var task = new ToDoTask({text: taskItemInput.value});
 
-  addTaskToDom(event, task)
-  newToDoList.addTask(task)
-}
+//   addTaskToDom(event, task)
+//   newToDoList.addTask(task)
+// }
 ///****
+
 function addTaskToDom() {
   if (event.target.className === 'form__div--plusbtn' && taskItemInput.value !== '') {
     var taskObject = {id: Date.now(), 
@@ -118,6 +135,16 @@ function addTaskToDom() {
   }
   clearItemInput();
   disablePlusBtn();
+}
+
+function deleteTask(event) {
+  if (event.target.className === 'ul__li--deleteimg') {
+    var currentToDoList = toDoListArray.length - 1
+    event.target.parentNode.remove();
+    taskObject = findTaskObject(event, currentToDoList, '.ul__li')
+    toDoListArray[currentToDoList].removeTask(taskObject.id)
+  }
+  disableMakeTaskListButton();
 }
 
 function createTaskArray() {
@@ -130,17 +157,23 @@ function createTaskArray() {
   })
   return tasks;
 }
-//****************
 
-function deleteTask(event) {
-  if (event.target.className === 'ul__li--deleteimg') {
-    var currentToDoList = toDoListArray.length - 1
-    event.target.parentNode.remove();
-    taskObject = findTaskObject(event, currentToDoList, '.ul__li')
-    toDoListArray[currentToDoList].removeTask(taskObject.id)
-  }
-  disableMakeTaskListButton();
+function finalizeToDoList() {
+  var taskObjects = createTaskArray();
+  var currentToDoList = new ToDoList ({
+    id: Date.now(),
+    title: taskTitleInput.value,
+    tasks: taskObjects
+  });
+  toDoListArray.push(currentToDoList);
+  currentToDoList.saveToStorage(toDoListArray);
+  createToDoListCard(currentToDoList)
+  clearTasksFromDOM(currentToDoList);
+  clearTitleInput();
+  clearItemInput();
+  disableClearBtn();
 }
+//****************
 
 function findTaskIndex(event, currentToDoList, className) {
   var taskIdentity = event.target.closest(className).dataset.id
@@ -164,44 +197,13 @@ function findToDoIndex(event, toDoListArray, className) {
   return toDoIndex
 }
 
-function findToDoObject(event, toDoListArray, className) {
-  var toDoListIndex = findToDoIndex(event, toDoListArray, className)
-  var toDoListObject = toDoListArray[toDoListIndex]
-  return toDoListObject
-}
-
-
-
-function clearTitleInput() {
-  taskTitleInput.value = '';
-}
-
-function clearItemInput() {
-  taskItemInput.value = '';
-}
-
-function finalizeToDoList() {
-  var taskObjects = createTaskArray();
-  var currentToDoList = new ToDoList ({
-    id: Date.now(),
-    title: taskTitleInput.value,
-    tasks: taskObjects
-  });
-  toDoListArray.push(currentToDoList);
-  currentToDoList.saveToStorage(toDoListArray);
-  createToDoListCard(currentToDoList)
-  clearTasksFromDOM(currentToDoList);
-  clearTitleInput();
-  clearItemInput();
-  disableClearBtn();
-}
-
-function clearTasksFromDOM() {
-  var nodes = Array.from(document.querySelector('.form__ul').childNodes);
-  nodes.forEach(node => {
-    node.remove();
-  })
-}
+//*** DELETE?
+// function findToDoObject(event, toDoListArray, className) {
+//   var toDoListIndex = findToDoIndex(event, toDoListArray, className)
+//   var toDoListObject = toDoListArray[toDoListIndex]
+//   return toDoListObject
+// }
+//*** DELETE?
 
 
 function createToDoListCard(currentToDoList) {
@@ -239,8 +241,10 @@ function toggleCheckBoxImg(event) {
   }
 }
 
-function returnToDoListTasks(currentToDoList) {
-  currentToDoList.tasks.map(function (task){
-    return `<li>${task.text}</li>`
-  }).join('')
-}
+//DELETE?
+// function returnToDoListTasks(currentToDoList) {
+//   currentToDoList.tasks.map(function (task){
+//     return `<li>${task.text}</li>`
+//   }).join('')
+// }
+//DELETE?
