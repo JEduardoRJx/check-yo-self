@@ -205,14 +205,15 @@ function clearTasksFromDOM() {
 
 
 function createToDoListCard(currentToDoList) {
-  var checkBoxImg = currentToDoList.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
-  console.log("CheckBoxIMG", checkBoxImg)
+
+  // console.log("CheckBoxIMG")
   cardSection.insertAdjacentHTML('afterbegin', `<article data-id="${currentToDoList.id}">
           <header class="article__header">
             <h2>${currentToDoList.title}</h2>
           </header>
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
+                var checkBoxImg = task.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
               return `<li class="article__ul--li" data-id="${task.id}"><img class="article__ul--checkboximg" src="${checkBoxImg}" alt="checkbox img icon">${task.text}</li>`
               }).join('')}
           </ul>
@@ -229,7 +230,6 @@ function toggleCheckBoxImg(event) {
     var currentToDoListIndex = findToDoIndex(event, toDoListArray, 'article')
     var currentToDoList = toDoListArray[currentToDoListIndex]
     var taskIndex = findTaskIndex(event, currentToDoListIndex, '.article__ul--li')
-    //taskIndex -1
     var taskObject = currentToDoList.tasks[taskIndex]
     currentToDoList.completeTask(taskObject)
     var checkBoxImg = taskObject.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
