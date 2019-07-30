@@ -162,6 +162,8 @@ button {
   height: 60px;
   border-radius: 2px;
   font-size: 1.5em;
+  font-weight: 500;
+
 }
 
 .form__btn--maketasklist {
@@ -177,7 +179,7 @@ button {
 }
 
 .aside__div--btn {
-  margin: 20px 0px;
+  margin: 30px 0px;
   padding: 0 15px;
 }
 
