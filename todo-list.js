@@ -31,15 +31,19 @@ class ToDoList {
     task.completed = !task.completed
   }
 
-  deleteFromStorage() {
+  deleteFromStorage(toDoListIndex, toDoListArray) {
+    console.log("first", toDoListArray)
+    toDoListArray.splice(toDoListIndex, 1)
+    console.log("second", toDoListArray)
 
+    this.saveToStorage(toDoListArray);
   }
 
   updateToDo() {
 
   }
 
-  updateTask(currentToDoList) {
+  updateTask(currentToDoList, toDoListArray) {
     currentToDoList.saveToStorage(toDoListArray)
   }
 }
