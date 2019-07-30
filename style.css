@@ -90,6 +90,8 @@ form {
 label {
   display: block;
   color: #C8D1D6;
+  margin: 10px 0px;
+  font-size: 1.25em;
 }
 
 .form__label--title {
