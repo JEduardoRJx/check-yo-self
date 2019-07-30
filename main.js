@@ -249,15 +249,14 @@ function toggleUrgent(event) {
     var currentToDoListIndex = findToDoIndex(event, toDoListArray, 'article');
     var currentToDoListCard = event.target.closest('article')
     var currentToDoListObject = toDoListArray[currentToDoListIndex]
-    currentToDoListObject.markUrgent();
-
   if (event.target.id === 'urgent') {
+    currentToDoListObject.markUrgent();
     var urgentImg = currentToDoListObject.urgent ? 'images/urgent-active.svg' : 'images/urgent.svg'
     var articleUrgentClass = currentToDoListObject.urgent ? 'article__urgent' : 'article__noturgent'
-    // var toggleUrgentClass = currentToDoListObject.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
-    // event.target.setAttribute('src', urgentImg)
+    var toggleUrgentClass = currentToDoListObject.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
+    event.target.setAttribute('src', urgentImg)
     event.target.parentNode.parentNode.setAttribute('class', articleUrgentClass)
-    // event.target.setAttribute('class', toggleUrgentClass)
+    event.target.setAttribute('class', toggleUrgentClass)
     currentToDoListObject.saveToStorage(toDoListArray)
   }
 }
