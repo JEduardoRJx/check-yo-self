@@ -23,7 +23,7 @@ class ToDoList {
   }
 
   saveToStorage(toDoListArray) {
-    toDoListArray.shift();
+    // toDoListArray.shift();
     localStorage.setItem('toDoList', JSON.stringify(toDoListArray));
   }
 
