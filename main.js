@@ -8,6 +8,7 @@ var deleteImg = document.querySelector('.ul__li--img')
 var makeTaskListBtn = document.querySelector('.form__btn--maketasklist')
 var clearBtn = document.querySelector('.form__btn--clear')
 var cardSection = document.querySelector('section')
+var urgentBtn = document.querySelector('.aside__btn')
 var toDoListArray = [];
 
 // *** Event Listeners ***
@@ -23,6 +24,7 @@ taskTitleInput.addEventListener('keyup', disableClearBtn)
 makeTaskListBtn.addEventListener('click', handleMakeTaskListBtn)
 clearBtn.addEventListener('click', handleClearBtn)
 cardSection.addEventListener('click', handleToDoListCardBehavior)
+urgentBtn.addEventListener('click', filterByUrgent)
 
 // *** Functionality | Handlers 1st ***
 function handlePageLoad() {
@@ -288,3 +290,10 @@ function searchByUrgent() {
   showMessage(toDoListArray, 'Create A ToDo List!')
 }
 
+function filterByUrgent() {
+  if (event.target.className === 'aside__btn') {
+    searchByUrgent();
+  } else {
+    clearToDoCards();
+  }
+}
