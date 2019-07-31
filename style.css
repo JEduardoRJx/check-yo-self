@@ -234,6 +234,16 @@ h2 {
   margin: 5px 0;
 }
 
+.aside__btn:hover {
+  background-color: #EF4A23;
+  color: #FFFFFF;
+}
+
+.aside__btn:focus {
+  background-color: #EF4A23;
+  color: #FFFFFF;
+}
+
 @media screen and (max-width: 960px) {
   header{
     align-items: center;

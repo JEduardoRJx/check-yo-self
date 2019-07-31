@@ -8,6 +8,7 @@ var deleteImg = document.querySelector('.ul__li--img')
 var makeTaskListBtn = document.querySelector('.form__btn--maketasklist')
 var clearBtn = document.querySelector('.form__btn--clear')
 var cardSection = document.querySelector('section')
+var urgentBtn = document.querySelector('.aside__btn')
 var toDoListArray = [];
 
 // *** Event Listeners ***
@@ -23,6 +24,7 @@ taskTitleInput.addEventListener('keyup', disableClearBtn)
 makeTaskListBtn.addEventListener('click', handleMakeTaskListBtn)
 clearBtn.addEventListener('click', handleClearBtn)
 cardSection.addEventListener('click', handleToDoListCardBehavior)
+urgentBtn.addEventListener('click', filterByUrgent)
 
 // *** Functionality | Handlers 1st ***
 function handlePageLoad() {
@@ -31,7 +33,7 @@ function handlePageLoad() {
   disablePlusBtn();
   disableMakeTaskListButton();
   disableClearBtn();
-  showMessage(toDoListArray, 'Create A ToDo List!')
+  showMessage(toDoListArray, 'Create A ToDo List!');
 }
 
 function handleMakeTaskListBtn() {
@@ -263,5 +265,35 @@ function showMessage(array, message) {
   } else {
     var newMessage = document.querySelector('#message');
     newMessage.remove();
+  }
+}
+
+function clearToDoCards() {
+  cardSection.innerHTML = '';
+}
+
+function keepToDoListCards(toDoListArray) {
+  toDoListArray.forEach(currentToDoList => {
+    createToDoListCard(currentToDoList);
+  })
+}
+
+function searchByUrgent() {
+  clearToDoCards();
+  var urgentArray = [];
+  toDoListArray.forEach(currentToDoList => {
+    if (currentToDoList.urgent === true) {
+      urgentArray.push(currentToDoList);
+    }
+  });
+  keepToDoListCards(urgentArray);
+  showMessage(toDoListArray, 'Create A ToDo List!')
+}
+
+function filterByUrgent() {
+  if (event.target.className === 'aside__btn') {
+    searchByUrgent();
+  } else {
+    clearToDoCards();
   }
 }
