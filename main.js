@@ -265,3 +265,7 @@ function showMessage(array, message) {
     newMessage.remove();
   }
 }
+
+function clearToDoCards() {
+  cardSection.innerHTML = '';
+}
