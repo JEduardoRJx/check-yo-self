@@ -10,7 +10,6 @@ var clearBtn = document.querySelector('.form__btn--clear')
 var cardSection = document.querySelector('section')
 var toDoListArray = [];
 
-
 // *** Event Listeners ***
 window.addEventListener('load', handlePageLoad)
 plusBtn.addEventListener('click', handlePlusBtn)
@@ -28,9 +27,7 @@ cardSection.addEventListener('click', handleToDoListCardBehavior)
 // *** Functionality | Handlers 1st ***
 function handlePageLoad() {
   checkToDoListStorage();
-  // persistToDoList(toDoListArray);
   appendToDoList();
-  // createNewToDoList();
   disablePlusBtn();
   disableMakeTaskListButton();
   disableClearBtn();
@@ -38,7 +35,6 @@ function handlePageLoad() {
 
 function handleMakeTaskListBtn() {
   finalizeToDoList();
-  // createNewToDoList(); //this pushes two with [0] empty
 }
 
 function handlePlusBtn() {
@@ -62,7 +58,7 @@ function checkToDoListStorage() {
     toDoListArray = [];
   } else {
     toDoListArray = JSON.parse(localStorage.getItem('toDoList')).map(element => {
-      return new ToDoList(element);
+    return new ToDoList(element);
     })
   }
 }
@@ -119,21 +115,10 @@ function createNewToDoList() {
   toDoListArray.push(newToDoList)
 }
 
-//***DELETE function createNewTask
-// function createNewTask(newToDoList) {
-//   var task = new ToDoTask({text: taskItemInput.value});
-
-//   addTaskToDom(event, task)
-//   newToDoList.addTask(task)
-// }
-///****
-
 function addTaskToDom() {
   if (event.target.className === 'form__div--plusbtn' && taskItemInput.value !== '') {
-    var taskObject = {id: Date.now(), 
-                      text: taskItemInput.value, 
-                      complete: false}
-  taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" data-id="${taskObject.id}"><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${taskObject.text}</li>`)
+    var taskObject = {id: Date.now(), text: taskItemInput.value, complete: false}
+    taskList.insertAdjacentHTML('beforeend', `<li class="ul__li" data-id="${taskObject.id}"><img class="ul__li--deleteimg" src="images/delete.svg" alt="delete img icon">${taskObject.text}</li>`)
   }
   clearItemInput();
   disablePlusBtn();
@@ -153,9 +138,7 @@ function createTaskArray() {
   var toDoTasks = document.querySelectorAll('.ul__li');
   var toDoTasksArray = Array.from(toDoTasks);
   var tasks = toDoTasksArray.map(task => {
-    return {id: task.dataset.id, 
-            text: task.innerText, 
-            completed: false}
+    return {id: task.dataset.id, text: task.innerText, completed: false}
   })
   return tasks;
 }
@@ -175,7 +158,6 @@ function finalizeToDoList() {
   clearItemInput();
   disableClearBtn();
 }
-//****************
 
 function findTaskIndex(event, currentToDoList, className) {
   var taskIdentity = event.target.closest(className).dataset.id
@@ -199,22 +181,14 @@ function findToDoIndex(event, toDoListArray, className) {
   return toDoIndex
 }
 
-//*** DELETE?
-// function findToDoObject(event, toDoListArray, className) {
-//   var toDoListIndex = findToDoIndex(event, toDoListArray, className)
-//   var toDoListObject = toDoListArray[toDoListIndex]
-//   return toDoListObject
-// }
-//*** DELETE?
-
-
 function createToDoListCard(currentToDoList) {
 var urgentImg = currentToDoList.urgent ? 'images/urgent-active.svg' : 'images/urgent.svg'
 var articleUrgentClass = currentToDoList.urgent ? 'article__urgent' : 'article__noturgent'
 var toggleUrgentClass = currentToDoList.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
-
   cardSection.insertAdjacentHTML('afterbegin', `<article class=${articleUrgentClass} data-id="${currentToDoList.id}">
+          <header class="article__header">
             <h2>${currentToDoList.title}</h2>
+          </header>
           <ul class="article__ul">
             ${currentToDoList.tasks.map(function (task){
                 var toggleCheckBoxClass = task.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
@@ -224,8 +198,14 @@ var toggleUrgentClass = currentToDoList.urgent ? 'article__footer--urgent' : 'ar
           </ul>
           </ul>
           <footer class="article__footer">
+            <div class="article__footer--div">
             <img class="${toggleUrgentClass}" id="urgent" src="${urgentImg}">
-            <img class="article__footer--delete" src="images/delete.svg" alt="delete img icon">
+            <p>URGENT</p>
+            </div>
+            <div class="article__footer--div">
+            <img class="article__footer--delete" src="images/delete.svg" alt="delete img icon"> 
+            <p>DELETE</p>
+            </div>
           </footer>
         </article>`)
 }
@@ -236,7 +216,7 @@ function toggleCheckBoxImg(event) {
     var currentToDoList = toDoListArray[currentToDoListIndex]
     var taskIndex = findTaskIndex(event, currentToDoListIndex, '.article__ul--li')
     var taskObject = currentToDoList.tasks[taskIndex]
-    currentToDoList.completeTask(taskObject); //false 2 True or Vice Versa
+    currentToDoList.completeTask(taskObject);
     var checkBoxImg = taskObject.completed ? 'images/checkbox-active.svg' : 'images/checkbox.svg'
     var toggleCheckBoxClass = taskObject.completed ? 'article__ul--checkboximgcomplete' : 'article__ul--checkboximgincomplete'
     event.target.setAttribute('class', toggleCheckBoxClass)
@@ -255,7 +235,7 @@ function toggleUrgent(event) {
     var articleUrgentClass = currentToDoListObject.urgent ? 'article__urgent' : 'article__noturgent'
     var toggleUrgentClass = currentToDoListObject.urgent ? 'article__footer--urgent' : 'article__footer--noturgent'
     event.target.setAttribute('src', urgentImg)
-    event.target.parentNode.parentNode.setAttribute('class', articleUrgentClass)
+    event.target.parentNode.parentNode.parentNode.setAttribute('class', articleUrgentClass)
     event.target.setAttribute('class', toggleUrgentClass)
     currentToDoListObject.saveToStorage(toDoListArray)
   }
@@ -267,18 +247,9 @@ function removeToDoListFromDOM(event) {
     toDoListIndex = findToDoIndex(event, toDoListArray, 'article')
     uncheckedTasks = toDoListCard.querySelectorAll('.article__ul--checkboximgincomplete').length
     var toDoListObject = toDoListArray[toDoListIndex]
-    console.log(uncheckedTasks)
     if (uncheckedTasks === 0) {
       toDoListCard.remove();
       toDoListObject.deleteFromStorage(toDoListIndex, toDoListArray)
     }
   }
 }
-
-//DELETE?
-// function returnToDoListTasks(currentToDoList) {
-//   currentToDoList.tasks.map(function (task){
-//     return `<li>${task.text}</li>`
-//   }).join('')
-// }
-//DELETE?
