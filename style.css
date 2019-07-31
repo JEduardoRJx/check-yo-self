@@ -211,7 +211,7 @@ article {
 
 .article__header,
 .article__footer {
-  background-color: #FAFDFF;
+  background-color: transparent;
   border-bottom: 1px solid #C7D3D8;
   padding: 0 10px;
   height: 3rem;
@@ -219,6 +219,9 @@ article {
 
 .article__footer {
   border-top: 1px solid #C7D3D8;
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
 }
 
 h2 {
@@ -243,13 +246,15 @@ h2 {
   margin-right: 5px
 }
 
-.article__footer {
-  display: flex;
-  justify-content: space-between;
+.article__footer--div {
+  flex-direction: column;
+  margin: 5px 0;
+  
 }
 
 .article__footer--urgent {
-  background-color: #FFE89D;
+  /*background-color: #FFE89D;*/
+
 }
 
 .article__footer--noturgent {
