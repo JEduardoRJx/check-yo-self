@@ -3,24 +3,18 @@
   <head>
     <title>Check Yo' Self</title>
     <link rel="stylesheet" href="style.css">
-    <!-- StyleSheet -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" ?|>
-<!-- Font -->
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <!--Body -->
   <body>
-    <!-- Header -->
     <header>
       <h1>CHECK <span>YO'</span> SELF</h1>
       <div class="header__div">
-          <img class="header__div--img" src="images/search.svg" alt="search img icon">
-<!--         </button> -->
+        <img class="header__div--img" src="images/search.svg" alt="search img icon">
         <input class="header__div--input" type="text" id="search" placeholder="Search">
+      </div>
     </header>
-    <!-- Main Body -->
     <main>  
-      <!-- Create Task Section -->
       <aside>
         <form>
           <label class="form__label--title" for="title-input">Task Title</label>
@@ -34,46 +28,14 @@
           <button class="form__btn--maketasklist" type="button">Make Task List</button>
           <button class="form__btn--clear" type="button">Clear All</button>
         </form>
-        <button class="aside__btn" type="button">Filter by Urgency</button>
+        <div class="aside__div--btn">
+          <button class="aside__btn" type="button">Filter by Urgency</button>
+        </div>
       </aside>
-      <!-- View Tasks Cards -->
       <section>
-        <!-- <article>
-          <header class="article__header">
-            <h2>Hello</h2>
-          </header>
-          <ul class="article__ul">
-            <li class="article__ul--li">World</li>
-            <li class="article__ul--li">Planet</li>
-            <li class="article__ul--li">Earth</li>
-            </ul>
-          </ul>
-          <footer class="article__footer">
-            <img class="article__footer--urgent" src="images/urgent.svg" alt="urgent img icon">
-            <img class="article__footer--delete" src="images/delete.svg" alt="delete img icon">
-          </footer>
-        </article> -->
-
-        <!-- <article>
-          <header class="article__header">
-            <h2>Hello</h2>
-          </header>
-          <ul class="article__ul">
-            <li class="article__ul--li">World</li>
-            <li class="article__ul--li">Planet</li>
-            <li class="article__ul--li">Earth</li>
-            </ul>
-          </ul>
-          <footer class="article__footer">
-            <img class="article__footer--urgent" src="images/urgent.svg" alt="urgent img icon">
-            <img class="article__footer--delete" src="images/delete.svg" alt="delete img icon">
-          </footer>
-        </article> -->
-
       </section>
     </main>
   </body>
-  <!--End Body -->
   <script type="text/javascript" src="todo-task.js"></script>
   <script type="text/javascript" src="todo-list.js"></script>
   <script type="text/javascript" src="main.js"></script>
