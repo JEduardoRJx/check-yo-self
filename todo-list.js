@@ -7,7 +7,7 @@ class ToDoList {
   }
 
   addTask(task) {
-    this.tasks.push(task)
+    this.tasks.push(task);
   }
 
   addTitle(title) {
@@ -15,16 +15,16 @@ class ToDoList {
   }
 
   completeTask(task) {
-    task.completed = !task.completed
+    task.completed = !task.completed;
   }
 
   deleteFromStorage(toDoListIndex, toDoListArray) {
-    toDoListArray.splice(toDoListIndex, 1)
+    toDoListArray.splice(toDoListIndex, 1);
     this.saveToStorage(toDoListArray);
   }
 
   markUrgent() {
-    this.urgent = !this.urgent
+    this.urgent = !this.urgent;
   }
 
   removeTask(taskId) {
@@ -40,6 +40,6 @@ class ToDoList {
   }
 
   updateTask(currentToDoList, toDoListArray) {
-    currentToDoList.saveToStorage(toDoListArray)
+    currentToDoList.saveToStorage(toDoListArray);
   }
 }
