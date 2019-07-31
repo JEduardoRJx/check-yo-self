@@ -31,6 +31,7 @@ function handlePageLoad() {
   disablePlusBtn();
   disableMakeTaskListButton();
   disableClearBtn();
+  showMessage(toDoListArray, 'Create A ToDo List!')
 }
 
 function handleMakeTaskListBtn() {
@@ -157,6 +158,7 @@ function finalizeToDoList() {
   clearTitleInput();
   clearItemInput();
   disableClearBtn();
+  showMessage(toDoListArray, 'Create A ToDo List!')
 }
 
 function findTaskIndex(event, currentToDoList, className) {
@@ -250,6 +252,16 @@ function removeToDoListFromDOM(event) {
     if (uncheckedTasks === 0) {
       toDoListCard.remove();
       toDoListObject.deleteFromStorage(toDoListIndex, toDoListArray)
+      showMessage(toDoListArray, 'Create A ToDo List!')
     }
+  }
+}
+
+function showMessage(array, message) {
+  if (toDoListArray.length === 0) {
+    cardSection.insertAdjacentHTML('afterbegin', `<p id='message'>${message}</p>`);
+  } else {
+    var newMessage = document.querySelector('#message');
+    newMessage.remove();
   }
 }
