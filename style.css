@@ -206,15 +206,19 @@ article {
 
 .article__urgent {
   background-color: #FFE89D;
-
+  border: 2px solid #FFC30C;
+  
 }
 
 .article__header,
 .article__footer {
-  background-color: transparent;
-  border-bottom: 1px solid #C7D3D8;
   padding: 0 10px;
+}
+
+.article__header {
+  background-color: transparent;
   height: 3rem;
+  border-bottom: 1px solid #C7D3D8;
 }
 
 .article__footer {
@@ -249,7 +253,7 @@ h2 {
 .article__footer--div {
   flex-direction: column;
   margin: 5px 0;
-  
+
 }
 
 .article__footer--urgent {
