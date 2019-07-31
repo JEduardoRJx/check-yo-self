@@ -31,7 +31,7 @@ function handlePageLoad() {
   disablePlusBtn();
   disableMakeTaskListButton();
   disableClearBtn();
-  showMessage(toDoListArray, 'Create A ToDo List!')
+  showMessage(toDoListArray, 'Create A ToDo List!');
 }
 
 function handleMakeTaskListBtn() {
@@ -275,3 +275,16 @@ function keepToDoListCards(toDoListArray) {
     createToDoListCard(currentToDoList);
   })
 }
+
+function searchByUrgent() {
+  clearToDoCards();
+  var urgentArray = [];
+  toDoListArray.forEach(currentToDoList => {
+    if (currentToDoList.urgent === true) {
+      urgentArray.push(currentToDoList);
+    }
+  });
+  keepToDoListCards(urgentArray);
+  showMessage(toDoListArray, 'Create A ToDo List!')
+}
+
