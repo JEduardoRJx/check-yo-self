@@ -182,25 +182,27 @@ button {
 .aside__div--btn {
   margin: 30px 0px;
   padding: 0 15px;
+  height: 300px;
 }
 
 /* *** SECTION | Cards *** */
 section {
   background-color: #F3F6F7;
-  display: inline-block;
-  padding: 2.25em;
   width:  100%; 
-  column-count: 3;
-  column-width: 15em
+  column-width: 15em;
+  column-count: 2;
+  padding: 2.25em;
+  /*column-count: 2;*/
 }
 
 /* *** Article | Card *** */
 article {
-  background-color: #FAFDFF;
-  border: 2px solid #C7D3D8;
   display: inline-block;
+  background-color: #FAFDFF;
+  margin: 0 0 15px;
+  border: 2px solid #C7D3D8;
   width:  100%;
-  margin-bottom: 12px;
+  /*break-inside: avoid;*/
   color: #1F1F3D;
 }
 
@@ -267,4 +269,29 @@ h2 {
 
 .article__footer--delete {
 
+}
+
+@media screen and (max-width: 850px) {
+  header{
+    flex-direction: column;
+    height: 53vh;
+    align-items: center;
+  }
+
+  .header__div {
+    width: 100%;
+  }
+  main {
+    flex-direction: column;
+  }
+  aside {
+    width:100%;
+    border: none;
+  }
+  .aside__div--btn {
+    height: 50px;
+  }
+  .form__div--plusbtn {
+    padding: 0;
+  }
 }
