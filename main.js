@@ -269,3 +269,9 @@ function showMessage(array, message) {
 function clearToDoCards() {
   cardSection.innerHTML = '';
 }
+
+function keepToDoListCards(toDoListArray) {
+  toDoListArray.forEach(currentToDoList => {
+    createToDoListCard(currentToDoList);
+  })
+}
