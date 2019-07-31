@@ -17,7 +17,10 @@ Check Yo' Self is a To Do List web app that lets users organize all their todo's
 
 ## Screen Shots
 
-### Comp
+### My Build
+![my_desktop](https://user-images.githubusercontent.com/48504854/62182718-e093a100-b314-11e9-9b2b-93aee3ba6b6c.png)
+![my_mobile](https://user-images.githubusercontent.com/48504854/62182727-e6898200-b314-11e9-9d4e-ecfaba2e6f35.png)
 
-
-### Build
+### Comps Given
+![comp_desktop](https://user-images.githubusercontent.com/48504854/62182694-cce83a80-b314-11e9-8334-beafa667c869.jpg)
+![comp_mobile](https://user-images.githubusercontent.com/48504854/62182708-d7a2cf80-b314-11e9-9d4d-608068ec333d.jpg)
