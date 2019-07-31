@@ -58,6 +58,7 @@ span {
   padding: 3%;
   height: 100%;
   border-radius: 3px 0px 0px 3px;
+  margin: 0;
 }
 
 .header__div--input {
@@ -117,8 +118,8 @@ ul {
   margin: 15px 0px;
 }
 
-.ul__li--deleteimg {
-  margin-right: 5px;
+img {
+  margin-right: 10px;
 }
 
 .form__label--task {
@@ -198,7 +199,6 @@ article {
   background-color: #FAFDFF;
   border: 2px solid #C7D3D8;
   display: inline-block;
-  padding:  1rem;
   width:  100%;
   margin-bottom: 12px;
   color: #1F1F3D;
@@ -209,12 +209,22 @@ article {
 
 }
 
-.article__header {
+.article__header,
+.article__footer {
   background-color: #FAFDFF;
+  border-bottom: 1px solid #C7D3D8;
+  padding: 0 10px;
+  height: 3rem;
+}
+
+.article__footer {
+  border-top: 1px solid #C7D3D8;
 }
 
 h2 {
-
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .article__ul {
@@ -226,6 +236,7 @@ h2 {
   align-items: center;
   font-size: 1.5em;
   color: #1F1F3D;
+  margin: 20px 0px;
 }
 
 .article__ul--checkboximg {
