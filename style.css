@@ -172,6 +172,13 @@ section {
   width:  100%; 
 }
 
+#message {
+  font-size: 2.75em;
+  font-weight: 600;
+  text-align: center;
+  width:100%;
+}
+
 article {
   background-color: #FAFDFF;
   border: 2px solid #C7D3D8;
