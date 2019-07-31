@@ -10,6 +10,23 @@ class ToDoList {
     this.tasks.push(task)
   }
 
+  addTitle(title) {
+    this.title = title;
+  }
+
+  completeTask(task) {
+    task.completed = !task.completed
+  }
+
+  deleteFromStorage(toDoListIndex, toDoListArray) {
+    toDoListArray.splice(toDoListIndex, 1)
+    this.saveToStorage(toDoListArray);
+  }
+
+  markUrgent() {
+    this.urgent = !this.urgent
+  }
+
   removeTask(taskId) {
     for(var index = 0; index < this.tasks.length; index++) {
       if(this.tasks[index].id === taskId) {
@@ -18,29 +35,8 @@ class ToDoList {
     }
   }
 
-  addTitle(title) {
-    this.title = title;
-  }
-
   saveToStorage(toDoListArray) {
-    // toDoListArray.shift();
     localStorage.setItem('toDoList', JSON.stringify(toDoListArray));
-  }
-
-  completeTask(task) {
-    task.completed = !task.completed
-  }
-
-  deleteFromStorage(toDoListIndex, toDoListArray) {
-    console.log("first", toDoListArray)
-    toDoListArray.splice(toDoListIndex, 1)
-    console.log("second", toDoListArray)
-
-    this.saveToStorage(toDoListArray);
-  }
-
-  updateToDo() {
-
   }
 
   updateTask(currentToDoList, toDoListArray) {
