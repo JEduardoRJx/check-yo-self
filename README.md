@@ -12,6 +12,13 @@ My learning goals consisted of solidifying my understanding of semantic HTML, cl
 ## Overview
 Check Yo' Self is a To Do List web app that lets users organize all their todo's. User's will be able to create a todo list via a form by entering a title and different tasks that relate. The user can delete a task if they chose to. Once a task is made they will see it a card displayed with their title and tasks plus checkboxes they can mark off. A card will also display an urgent icon that lets users mark which todo lists are most urgent. Only when all the tasks are complete can they delete the todo list card.
 
+## Tech 
+
+The tech used in this app include: 
+- Vanilla JavaScript 
+- HTML
+- CSS
+
 ## Live Page
 [My Check Yo' Self web app!](https://jeduardorjx.github.io/check-yo-self/)
 
