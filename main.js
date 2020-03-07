@@ -246,17 +246,11 @@ function toggleUrgent(event) {
 }
 
 function removeToDoListFromDOM(event) {
-  console.log('e', event)
   if (event.target.className === 'article__footer--delete') {
-    console.log('hey')
     toDoListCard = event.target.closest('article');
     toDoListIndex = findToDoIndex(event, toDoListArray, 'article');
-    console.log('tdli', toDoListIndex)
-
     uncheckedTasks = toDoListCard.querySelectorAll('.article__ul--checkboximgincomplete').length;
-
     var toDoListObject = toDoListArray[toDoListIndex];
-    console.log('tdlO', toDoListObject)
     toDoListCard.remove();
     toDoListObject.deleteFromStorage(toDoListIndex, toDoListArray);
     if (toDoListArray.length === 0) {
