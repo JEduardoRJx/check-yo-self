@@ -128,10 +128,8 @@ function addTaskToDom() {
 }
 
 function deleteTask(event) {
-  console.log(event)
   if (event.target.className === 'ul__li--deleteimg') {
     var currentToDoList = toDoListArray.length - 1;
-    // console.log()
     event.target.parentNode.remove();
     taskObject = findTaskObject(event, currentToDoList, '.ul__li');
     toDoListArray[currentToDoList].removeTask(taskObject.id);
