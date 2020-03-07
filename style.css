@@ -227,11 +227,13 @@ h2 {
 
 .article__ul--checkboximg {
   margin-right: 5px;
+  cursor: pointer;
 }
 
 .article__footer--div {
   flex-direction: column;
   margin: 5px 0;
+  cursor: pointer;
 }
 
 .aside__btn:hover {
