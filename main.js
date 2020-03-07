@@ -128,8 +128,10 @@ function addTaskToDom() {
 }
 
 function deleteTask(event) {
+  console.log(event)
   if (event.target.className === 'ul__li--deleteimg') {
     var currentToDoList = toDoListArray.length - 1;
+    // console.log()
     event.target.parentNode.remove();
     taskObject = findTaskObject(event, currentToDoList, '.ul__li');
     toDoListArray[currentToDoList].removeTask(taskObject.id);
@@ -246,12 +248,19 @@ function toggleUrgent(event) {
 }
 
 function removeToDoListFromDOM(event) {
+  console.log('e', event)
   if (event.target.className === 'article__footer--delete') {
+    console.log('hey')
     toDoListCard = event.target.closest('article');
+    console.log(toDoListCard)
     toDoListIndex = findToDoIndex(event, toDoListArray, 'article');
+    console.log(toDoListIndex)
+
     uncheckedTasks = toDoListCard.querySelectorAll('.article__ul--checkboximgincomplete').length;
+    console.log(uncheckedTasks)
+
     var toDoListObject = toDoListArray[toDoListIndex];
-    if (uncheckedTasks === 0) {
+    if (uncheckedTasks === 1) {
       toDoListCard.remove();
       toDoListObject.deleteFromStorage(toDoListIndex, toDoListArray);
       showMessage(toDoListArray, 'Create A ToDo List!');
@@ -259,7 +268,7 @@ function removeToDoListFromDOM(event) {
   }
 }
 
-function showMessage(array, message) {
+function showMessage(message) {
   if (toDoListArray.length === 0) {
     cardSection.insertAdjacentHTML('afterbegin', `<p id='message'>${message}</p>`);
   } else {
