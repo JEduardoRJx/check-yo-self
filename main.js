@@ -252,23 +252,22 @@ function removeToDoListFromDOM(event) {
   if (event.target.className === 'article__footer--delete') {
     console.log('hey')
     toDoListCard = event.target.closest('article');
-    console.log(toDoListCard)
     toDoListIndex = findToDoIndex(event, toDoListArray, 'article');
-    console.log(toDoListIndex)
+    console.log('tdli', toDoListIndex)
 
     uncheckedTasks = toDoListCard.querySelectorAll('.article__ul--checkboximgincomplete').length;
-    console.log(uncheckedTasks)
 
     var toDoListObject = toDoListArray[toDoListIndex];
-    if (uncheckedTasks === 1) {
-      toDoListCard.remove();
-      toDoListObject.deleteFromStorage(toDoListIndex, toDoListArray);
+    console.log('tdlO', toDoListObject)
+    toDoListCard.remove();
+    toDoListObject.deleteFromStorage(toDoListIndex, toDoListArray);
+    if (toDoListArray.length === 0) {
       showMessage(toDoListArray, 'Create A ToDo List!');
     }
   }
 }
 
-function showMessage(message) {
+function showMessage(toDoListArray, message) {
   if (toDoListArray.length === 0) {
     cardSection.insertAdjacentHTML('afterbegin', `<p id='message'>${message}</p>`);
   } else {
